@@ -18,13 +18,13 @@ export const styles = StyleSheet.create({
 		fontWeight: 500
 	},
 	disabled: {
-		opacity: 0.5,
+		
 		backgroundColor: "transparent",
 		borderColor: COLORS.bisqueSecondary,
 		borderWidth: 2,
 		borderStyle: "solid"
 	},
 	disabledText: {
-		color: COLORS.transparentBlack
+		color: COLORS.transparentBlack,
 	},
 });

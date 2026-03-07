@@ -30,11 +30,9 @@ export function Input(props: InputProps) {
 
 			{error && (
 				<View style={styles.errorContainer}>
-					<Icons.ErrorIcon
-						width={16}
-						height={16}
-						viewBox="0 0 16 16"
-					/>
+					<View style={{ width: 16, height: 16 }}>
+						<Icons.ErrorIcon width="100%" height="100%" />
+					</View>
 					<Text style={styles.errorText}>{error}</Text>
 				</View>
 			)}
@@ -45,9 +43,9 @@ export function Input(props: InputProps) {
 function Password(props: InputPasswordProps) {
 	const [isHidden, setIsHidden] = useState<boolean>(true);
 	const EyeIcon = isHidden ? (
-		<Icons.EyeClosedIcon></Icons.EyeClosedIcon>
+		<Icons.EyeClosedIcon fill={"none"} width={"100%"} height={"100%"} />
 	) : (
-		<Icons.EyeOpenedIcon></Icons.EyeOpenedIcon>
+		<Icons.EyeOpenedIcon fill={"none"} width={"100%"} height={"100%"} />
 	);
 	function handleToggleVisibility() {
 		setIsHidden(!isHidden);
@@ -56,7 +54,13 @@ function Password(props: InputPasswordProps) {
 		<Input
 			{...props}
 			iconLeft={
-				<Icons.KeyIcon width={32} height={32} viewBox="0 0 32 32" />
+				<View style={{ width: 32, height: 32 }}>
+					<Icons.KeyIcon
+						width={"100%"}
+						height={"100%"}
+						fill={"none"}
+					/>
+				</View>
 			}
 			iconRight={
 				<TouchableOpacity
