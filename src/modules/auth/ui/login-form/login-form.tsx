@@ -4,14 +4,17 @@ import { Button } from "@shared/ui/button";
 import { Input } from "@shared/ui/input";
 import { Icons } from "@shared/ui/icons";
 import { useForm, Controller } from "react-hook-form";
-import { LoginFormState } from "./login-forn-types";
+import { LoginFormState } from "./login-form.types";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginSchema } from "../../model/login-schema";
 
 export function LoginForm() {
-	const { handleSubmit, control } = useForm<LoginFormState>({
+	const { handleSubmit, control } = useForm({
 		defaultValues: {
 			email: "",
 			password: "",
 		},
+		resolver: yupResolver(loginSchema),
 	});
 
 	function onSubmit(data: LoginFormState) {
@@ -23,16 +26,6 @@ export function LoginForm() {
 				<Controller
 					control={control}
 					name="email"
-					rules={{
-						required: {
-							value: true,
-							message: "Field is required",
-						},
-						minLength: {
-							value: 10,
-							message: "Minlenght 10",
-						},
-					}}
 					render={({ field, fieldState }) => {
 						return (
 							<Input
@@ -55,12 +48,6 @@ export function LoginForm() {
 				<Controller
 					control={control}
 					name="password"
-					rules={{
-						required: {
-							value: true,
-							message: "Field is required",
-						},
-					}}
 					render={({ field, fieldState }) => {
 						return (
 							<Input.Password
