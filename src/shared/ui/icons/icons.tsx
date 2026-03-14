@@ -3,6 +3,7 @@ import { ErrorIcon } from "./_icons/error";
 import { EyeClosedIcon } from "./_icons/eye-closed-icon";
 import { EyeOpenedIcon } from "./_icons/eye-opened-icon";
 import { KeyIcon } from "./_icons/key-icon";
+import { SearchIcon } from "./_icons/search-icon";
 
 export const Icons = {
 	EmailIcon,
@@ -10,4 +11,5 @@ export const Icons = {
 	EyeClosedIcon,
 	EyeOpenedIcon,
 	KeyIcon,
+	SearchIcon,
 };

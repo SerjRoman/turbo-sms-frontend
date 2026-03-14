@@ -1,22 +1,20 @@
-import { AddititonalContent, LoginForm, WelcomeBlock } from "@modules/auth";
-import { StatusBar } from "expo-status-bar";
+import { WelcomeBlock, AddititonalContent, RegisterForm } from "@modules/auth";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function Login() {
+export default function StepTwo() {
 	return (
 		<SafeAreaView style={styles.container}>
 			<WelcomeBlock />
-			<LoginForm />
+			<RegisterForm.StepTwo />
 			<AddititonalContent
-				text={"Don't have an account? "}
-				href={"/register/step-one"}
-				linkText={"Register now!"}
+				text={"Already have an account? "}
+				href={"/login"}
+				linkText={"Login now!"}
 			/>
 		</SafeAreaView>
 	);
 }
-
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,

@@ -1,25 +1,32 @@
 import { View } from "react-native";
-import { styles } from "./login-form.styles";
 import { Button } from "@shared/ui/button";
 import { Input } from "@shared/ui/input";
 import { Icons } from "@shared/ui/icons";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import type { LoginSchema } from "../../model/types";
-import { loginSchema } from "../../model/schemas";
+import { registerSchema } from "../../../model/schemas";
+import type { RegisterStepOneSchema } from "../../../model/types";
+import { styles } from "./step-one.styles";
+import { useRouter } from "expo-router";
 
-
-export function LoginForm() {
+export function StepOne() {
 	const { handleSubmit, control } = useForm({
 		defaultValues: {
 			email: "",
 			password: "",
+			username: "",
 		},
-		resolver: yupResolver(loginSchema),
+		resolver: yupResolver(registerSchema.stepOne),
 	});
+	const router = useRouter();
 
-	function onSubmit(data: LoginSchema) {
-		console.log(data);
+	function onSubmit(data: RegisterStepOneSchema) {
+		router.push({
+			pathname: "/register/step-two",
+			params: {
+				...data,
+			},
+		});
 	}
 	return (
 		<View style={styles.container}>
@@ -37,6 +44,27 @@ export function LoginForm() {
 								autoComplete="email"
 								autoCorrect={false}
 								inputMode="email"
+								onChangeText={field.onChange}
+								onBlur={field.onBlur}
+								value={field.value}
+								error={fieldState.error?.message}
+							/>
+						);
+					}}
+				/>
+				<Controller
+					control={control}
+					name="username"
+					render={({ field, fieldState }) => {
+						return (
+							<Input
+								iconLeft={<Icons.EmailIcon />}
+								placeholder="Your username"
+								label="Userame"
+								autoCapitalize={"none"}
+								autoComplete="email"
+								autoCorrect={false}
+								inputMode="text"
 								onChangeText={field.onChange}
 								onBlur={field.onBlur}
 								value={field.value}
@@ -66,9 +94,11 @@ export function LoginForm() {
 					}}
 				/>
 			</View>
-
 			<View style={styles.submitBlock}>
-				<Button title={"Login"} onPress={handleSubmit(onSubmit)} />
+				<Button
+					title={"Continue..."}
+					onPress={handleSubmit(onSubmit)}
+				/>
 			</View>
 		</View>
 	);

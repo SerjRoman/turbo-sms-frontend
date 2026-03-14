@@ -1,1 +1,6 @@
-export { WelcomeBlock, LoginForm, AddititonalContent } from "./ui";
+export {
+	WelcomeBlock,
+	LoginForm,
+	AddititonalContent,
+	RegisterForm,
+} from "./ui";
