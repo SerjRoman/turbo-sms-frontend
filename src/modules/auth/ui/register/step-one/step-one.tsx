@@ -60,7 +60,7 @@ export function StepOne() {
 							<Input
 								iconLeft={<Icons.EmailIcon />}
 								placeholder="Your username"
-								label="Userame"
+								label="Username"
 								autoCapitalize={"none"}
 								autoComplete="email"
 								autoCorrect={false}

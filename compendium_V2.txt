@@ -113,3 +113,6 @@ Expo Router работает в папке ./app или ./src/app
 useRouter - от Expo - Работа с самими функциями Ехро, добавляет доп. функции такие как .() 
 useNavigation - от react-native-navigation - работа с корнем, позволяет использовать функции такие как reset()
 
+
+Для работы с клавиаутрой используем react-native-keyboard-Controller
+npx expo install react-native-keyboard-controller react-native-reanimated react-native-worklets

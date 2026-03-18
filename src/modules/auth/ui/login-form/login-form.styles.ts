@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
 		flex: 2,
 		alignItems: "center",
 		gap: 30,
+        flexShrink: 0
 	},
 	inputs: {
 		width: "100%",
