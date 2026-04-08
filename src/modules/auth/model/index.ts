@@ -3,4 +3,5 @@ export type {
 	RegisterStepOneSchema,
 	RegisterStepTwoSchema,
 	LoginSchema,
+	User,
 } from "./types";
