@@ -1,4 +1,4 @@
-import { useUserContext, useMeQuery } from "@modules/auth";
+import { useUserContext, useMeQuery, UserContextProvider } from "@modules/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ApiProvider } from "@reduxjs/toolkit/query/react";
 import { baseApi } from "@shared/api/base";
@@ -9,6 +9,21 @@ import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function RootLayout() {
+	return (
+		<SafeAreaProvider>
+			<ApiProvider api={baseApi}>
+				<UserContextProvider>
+					<KeyboardProvider>
+						<StatusBar style="auto" />
+						<AppStack />
+					</KeyboardProvider>
+				</UserContextProvider>
+			</ApiProvider>
+		</SafeAreaProvider>
+	);
+}
+
+function AppStack() {
 	const { token, setUser, setToken } = useUserContext();
 	const { refetch, data } = useMeQuery();
 
@@ -21,6 +36,7 @@ export default function RootLayout() {
 
 	useEffect(() => {
 		if (data) {
+			console.log(data);
 			setUser(data);
 		}
 	}, [data]);
@@ -34,18 +50,10 @@ export default function RootLayout() {
 		}
 		loadToken();
 	}, []);
-
 	return (
-		<SafeAreaProvider>
-			<ApiProvider api={baseApi}>
-				<KeyboardProvider>
-					<StatusBar style="auto" />
-					<Stack screenOptions={{ headerShown: false }}>
-						<Stack.Screen name="index" />
-						<Stack.Screen name={"(auth)"} />
-					</Stack>
-				</KeyboardProvider>
-			</ApiProvider>
-		</SafeAreaProvider>
+		<Stack screenOptions={{ headerShown: false }}>
+			<Stack.Screen name="index" />
+			<Stack.Screen name={"(auth)"} />
+		</Stack>
 	);
 }

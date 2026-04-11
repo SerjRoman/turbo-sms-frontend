@@ -4,16 +4,29 @@ import { Input } from "@shared/ui/input";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { styles } from "./step-two.styles";
-import { registerSchema, type RegisterStepTwoSchema } from "../../../model";
-import { useLocalSearchParams } from "expo-router";
-import { Images } from "@shared/ui/images";
+import {
+	registerSchema,
+	RegisterStepOneSchema,
+	type RegisterStepTwoSchema,
+} from "../../../model";
+import { router, useLocalSearchParams } from "expo-router";
 import { Image } from "expo-image";
 import { Icons } from "@shared/ui/icons";
 import { pickImage } from "@shared/tools/pick-image";
+import { useRegisterMutation } from "../../../api";
+import { useUserContext } from "../../../context";
+import { useEffect } from "react";
 
 export function StepTwo() {
-	const params = useLocalSearchParams();
-	const { handleSubmit, control } = useForm({
+	const params = useLocalSearchParams<RegisterStepOneSchema>();
+	const [registerMutation, { error }] = useRegisterMutation();
+	const { setToken } = useUserContext();
+	const {
+		handleSubmit,
+		control,
+		setError,
+		formState: { errors },
+	} = useForm({
 		defaultValues: {
 			name: "",
 			surname: "",
@@ -21,13 +34,41 @@ export function StepTwo() {
 		},
 		resolver: yupResolver(registerSchema.stepTwo),
 	});
+	useEffect(() => {
+		if (!error) return;
+		let message = "Unhandled error";
+		if (error && typeof error === "object" && "status" in error) {
+			switch (error.status) {
+				case 409:
+					message = "User with such email already exists!";
+					break;
+				case 401:
+					message = "Password is wrong";
+					break;
+				case 500:
+					message = "Server error";
+					break;
+				default:
+					message = "Unhandled error";
+					break;
+			}
+		}
+		setError("root", { message });
+	}, [error]);
 
-	function onSubmit(data: RegisterStepTwoSchema) {
+	async function onSubmit(data: RegisterStepTwoSchema) {
 		const finalData = {
 			...data,
 			...params,
+			avatar: data.avatar || null,
 		};
 		console.log(finalData);
+		try {
+			const { token } = await registerMutation(finalData).unwrap();
+			setToken(token);
+		} catch (error) {
+			console.error(error);
+		}
 	}
 	return (
 		<View style={styles.container}>
@@ -122,6 +163,14 @@ export function StepTwo() {
 
 			<View style={styles.submitBlock}>
 				<Button title={"Register"} onPress={handleSubmit(onSubmit)} />
+				<TouchableOpacity
+					onPress={() => {
+						router.back();
+					}}
+				>
+					<Text>Go Back</Text>
+				</TouchableOpacity>
+				{errors.root?.message && <Text>{errors.root?.message}</Text>}
 			</View>
 		</View>
 	);

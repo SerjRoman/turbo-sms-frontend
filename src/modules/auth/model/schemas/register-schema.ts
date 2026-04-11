@@ -9,7 +9,7 @@ export const registerSchema = {
 		username: yup.string().required("Field is required!"),
 		password: yup
 			.string()
-			.min(8, "Password length > 8")
+			.min(6, "Password length > 6")
 			.max(50, "Password length < 50")
 			.required("Field is required"),
 	}),

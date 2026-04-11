@@ -6,7 +6,7 @@ export interface RegPayload {
 	name: string;
 	surname: string;
 	username: string;
-    avatar: string;
+	avatar?: string | null | undefined;
 }
 
 export interface RegResponse {
