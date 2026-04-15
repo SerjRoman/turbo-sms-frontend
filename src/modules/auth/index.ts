@@ -1,4 +1,9 @@
-export { useMeQuery, useLoginMutation, useRegisterMutation } from "./api";
+export {
+	useMeQuery,
+	useLoginMutation,
+	useRegisterMutation,
+	useLazyMeQuery,
+} from "./api";
 export {
 	WelcomeBlock,
 	LoginForm,

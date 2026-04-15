@@ -64,4 +64,9 @@ const authApi = baseApi
 			};
 		},
 	});
-export const { useLoginMutation, useMeQuery, useRegisterMutation } = authApi;
+export const {
+	useLoginMutation,
+	useMeQuery,
+	useRegisterMutation,
+	useLazyMeQuery,
+} = authApi;

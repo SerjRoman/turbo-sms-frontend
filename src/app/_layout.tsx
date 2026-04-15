@@ -1,8 +1,12 @@
-import { useUserContext, useMeQuery, UserContextProvider } from "@modules/auth";
+import {
+	useUserContext,
+	useLazyMeQuery,
+	UserContextProvider,
+} from "@modules/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ApiProvider } from "@reduxjs/toolkit/query/react";
 import { baseApi } from "@shared/api/base";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { KeyboardProvider } from "react-native-keyboard-controller";
@@ -25,19 +29,21 @@ export default function RootLayout() {
 
 function AppStack() {
 	const { token, setUser, setToken } = useUserContext();
-	const { refetch, data } = useMeQuery();
-
+	const [meQuery, { data }] = useLazyMeQuery();
+	const router = useRouter();
 	useEffect(() => {
 		if (token) {
 			AsyncStorage.setItem("token", token);
-			refetch();
+			meQuery()
+				.unwrap()
+				.catch(() => AsyncStorage.clear());
 		}
 	}, [token]);
 
 	useEffect(() => {
 		if (data) {
-			console.log(data);
 			setUser(data);
+			router.navigate("/chats");
 		}
 	}, [data]);
 

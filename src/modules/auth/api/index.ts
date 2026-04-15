@@ -1,1 +1,6 @@
-export { useLoginMutation, useMeQuery, useRegisterMutation } from "./auth-api";
+export {
+	useLoginMutation,
+	useMeQuery,
+	useRegisterMutation,
+	useLazyMeQuery,
+} from "./auth-api";
