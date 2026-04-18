@@ -43,7 +43,7 @@ function AppStack() {
 	useEffect(() => {
 		if (data) {
 			setUser(data);
-			router.navigate("/chats");
+			router.replace("/chats");
 		}
 	}, [data]);
 

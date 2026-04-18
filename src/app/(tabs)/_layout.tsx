@@ -1,3 +1,7 @@
+import { HeaderChats } from "@modules/chat";
+import { HeaderContacts } from "@modules/contact";
+import { HeaderProfile } from "@modules/profile";
+import { HeaderSettings } from "@modules/settings";
 import { COLORS } from "@shared/constants/colors";
 import { FONT_SIZE } from "@shared/constants/font-size";
 import { Icons } from "@shared/ui/icons";
@@ -24,6 +28,7 @@ export default function TabsLayout() {
 							fill={focused ? COLORS.grey : COLORS.black}
 						/>
 					),
+					header: () => <HeaderContacts />,
 				}}
 				name="contacts"
 			/>
@@ -35,6 +40,7 @@ export default function TabsLayout() {
 							fill={focused ? COLORS.grey : COLORS.black}
 						/>
 					),
+					header: () => <HeaderChats />,
 				}}
 				name="chats"
 			/>
@@ -46,6 +52,7 @@ export default function TabsLayout() {
 							fill={focused ? COLORS.grey : COLORS.black}
 						/>
 					),
+					header: () => <HeaderProfile />,
 				}}
 				name="profile"
 			/>
@@ -57,6 +64,7 @@ export default function TabsLayout() {
 							fill={focused ? COLORS.grey : COLORS.black}
 						/>
 					),
+					header: () => <HeaderSettings />,
 				}}
 				name="settings"
 			/>
