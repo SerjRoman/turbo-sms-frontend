@@ -1,4 +1,3 @@
-// import { Contact, UserResponse } from "./contact.types";
 import { baseApi } from "@shared/api/base";
 import type { 
     GetAllContactsResponse,
@@ -18,17 +17,20 @@ const contactApi = baseApi
             return {
                 getContacts: builder.query<GetAllContactsResponse, void>({
                     query: () => ({
-                        url: "contacts/"
+                        url: "contacts/",
+                        method: "GET"
                     })    
                 }),
                 getUser: builder.query<GetUserResponse, GetUserPayload>({
                     query: (body) => ({
                         url: `users/${body.username}`,
+                        method: "GET"
                     })
                 }),
                 getContact: builder.query<GetContactResponse, GetContactPayload>({
                     query: (body) => ({
-                        url: `contacts/${body.contactId}`
+                        url: `contacts/${body.contactId}`,
+                        method: "GET"
                     })
                 }),
                 createContact: builder.mutation<CreateContactResponse, CreateContactPayload>({
@@ -55,5 +57,6 @@ export const {
     useGetContactsQuery,
     useGetContactQuery,
     useGetUserQuery,
-    useCreateContactMutation
+    useCreateContactMutation,
+    useLazyGetUserQuery
 } = contactApi

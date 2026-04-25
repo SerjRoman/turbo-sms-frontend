@@ -2,5 +2,6 @@ export {
     useGetContactsQuery,
     useGetContactQuery,
     useGetUserQuery,
-    useCreateContactMutation
+    useCreateContactMutation,
+    useLazyGetUserQuery
 } from "./contact-api"

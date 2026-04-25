@@ -11,3 +11,4 @@ export {
 	RegisterForm,
 } from "./ui";
 export { useUserContext, UserContextProvider } from "./context";
+export type { User } from "./model";
