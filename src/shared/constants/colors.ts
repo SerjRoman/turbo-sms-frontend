@@ -7,4 +7,7 @@ export const COLORS = {
 	brownPrimary: "#733349",
 	grey: "#C8C8C8",
 	greyBackground: "#F5F5F5",
+	green: "#45F680",
+	red: "#F6454E",
+	greyText: "#6C6E6C"
 };
