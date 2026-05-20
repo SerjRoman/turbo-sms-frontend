@@ -1,4 +1,5 @@
 export const FONT_SIZE = {
+	titleSmall: 14,
 	titleMedium: 16,
 	titleLarge: 22,
 	small: 12,
