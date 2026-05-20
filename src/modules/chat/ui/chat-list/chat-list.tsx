@@ -1,17 +1,11 @@
 import { FlatList, View, Text } from "react-native";
 import { Image } from "expo-image";
-import type {
-	ChatUserInfo,
-	ChatWithContactInfo,
-	Chat,
-	LastMessage,
-} from "./chat-list.types";
+import type { ChatWithContactInfo } from "./chat-list.types";
 import { chatItemStyles, chatListStyles } from "./chat-list.styles";
 import { TEST_CHAT_LIST_DATA } from "./TEST_DATA";
 
-
 export interface ChatItemProps {
-    data: ChatWithContactInfo
+	data: ChatWithContactInfo;
 }
 
 function ChatItem(props: ChatItemProps) {
@@ -34,9 +28,12 @@ function ChatItem(props: ChatItemProps) {
 				/>
 			</View>
 			<View style={chatItemStyles.textualBlock}>
-				<Text style={chatItemStyles.nameLabel}>{data.participant.name}</Text>
+				<Text style={chatItemStyles.nameLabel}>
+					{data.participant.name}
+				</Text>
 				<Text style={chatItemStyles.textLabel}>
-					{data.lastMessage && `${data.participant.name}: ${data.lastMessage.text}`}
+					{data.lastMessage &&
+						`${data.participant.name}: ${data.lastMessage.text}`}
 				</Text>
 			</View>
 			<Text style={chatItemStyles.sentAtLabel}>17:29</Text>
@@ -48,15 +45,11 @@ export function ChatList() {
 	const chats = TEST_CHAT_LIST_DATA;
 	return (
 		<FlatList
-            contentContainerStyle = {chatListStyles.chatListContainer}
+			contentContainerStyle={chatListStyles.chatListContainer}
 			data={chats}
-			renderItem={({ item }) => (
-				<ChatItem
-					data={item}
-				/>
-			)}
-            keyExtractor={item => `${item.id}`}
-            style = {chatListStyles.chatList}
+			renderItem={({ item }) => <ChatItem data={item} />}
+			keyExtractor={(item) => `${item.id}`}
+			style={chatListStyles.chatList}
 		/>
 	);
 }

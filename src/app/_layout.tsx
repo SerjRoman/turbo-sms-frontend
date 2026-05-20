@@ -5,6 +5,7 @@ import {
 } from "@modules/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ApiProvider } from "@reduxjs/toolkit/query/react";
+import { ClientSocket } from "@shared/api";
 import { baseApi } from "@shared/api/base";
 import { Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -32,12 +33,37 @@ function AppStack() {
 	const [meQuery, { data }] = useLazyMeQuery();
 	const router = useRouter();
 	useEffect(() => {
-		if (token) {
-			AsyncStorage.setItem("token", token);
-			meQuery()
-				.unwrap()
-				.catch(() => AsyncStorage.clear());
+		if (!token) return;
+		AsyncStorage.setItem("token", token);
+		meQuery()
+			.unwrap()
+			.catch(() => AsyncStorage.clear());
+
+		if (!ClientSocket.connected) {
+			ClientSocket.auth = { token: `Bearer ${token}` };
+			ClientSocket.connect();
 		}
+
+		function onConnection() {
+			console.log("Connected to socket server");
+		}
+		function onDisconnection() {
+			console.log("Disconnected from socket server");
+		}
+		function onConnectionError(error: Error) {
+			console.error("Connection error:", error);
+		}
+
+		ClientSocket.on("connect", onConnection);
+		ClientSocket.on("disconnect", onDisconnection);
+		ClientSocket.on("connect_error", onConnectionError);
+
+		return () => {
+			ClientSocket.off("connect", onConnection);
+			ClientSocket.off("disconnect", onDisconnection);
+			ClientSocket.off("connect_error", onConnectionError);
+			ClientSocket.disconnect();
+		};
 	}, [token]);
 
 	useEffect(() => {
