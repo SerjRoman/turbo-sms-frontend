@@ -5,6 +5,7 @@ export const COLORS = {
 	transparentBlack: "rgba(0, 0, 0, 0.5)",
 	error: "#FF0000",
 	brownPrimary: "#733349",
+	brownSecondary: "#DFCFCF",
 	grey: "#C8C8C8",
 	greyBackground: "#F5F5F5",
 	green: "#45F680",

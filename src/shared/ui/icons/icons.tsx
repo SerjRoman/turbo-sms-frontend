@@ -10,6 +10,7 @@ import { ProfileIcon } from "./_icons/profile-icon";
 import { SettingsIcon } from "./_icons/settings-icon";
 import { PlusIcon } from "./_icons/plus-icon";
 import { ArrowBackIcon } from "./_icons/arrow-back-icon";
+import { CheckmarkIcon } from "./_icons/checkmark-icon";
 
 
 export const Icons = {
@@ -25,4 +26,5 @@ export const Icons = {
 	SettingsIcon,
 	PlusIcon,
 	ArrowBackIcon,
+	CheckmarkIcon
 };
