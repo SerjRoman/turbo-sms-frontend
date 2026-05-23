@@ -1,15 +1,7 @@
 import type { User } from "../@x";
+import type { Contact } from "../model";
 
-interface Contact {
-	id: number;
-	localName: string;
-	avatar: string;
-	lastSeenAt: string;
-}
-
-export interface GetAllContactsResponse {
-	data: Contact[];
-}
+export type GetAllContactsResponse = Contact[];
 
 export interface GetUserPayload {
 	username: string;
@@ -25,6 +17,6 @@ export interface CreateContactPayload {
 	name: string;
 	surname: string;
 	contactUserId: number;
-	avatar: string;
+	avatar: string | null;
 }
 export type CreateContactResponse = Contact;

@@ -9,5 +9,6 @@ export const COLORS = {
 	greyBackground: "#F5F5F5",
 	green: "#45F680",
 	red: "#F6454E",
-	greyText: "#6C6E6C"
+	greyText: "#6C6E6C",
+	white: "#fff"
 };

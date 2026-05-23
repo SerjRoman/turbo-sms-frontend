@@ -37,6 +37,7 @@ export default function CreateContactStepOne() {
 				onChangeText={(text) => setUsername(text)}
 				placeholder="Search..."
 				iconLeft={<Icons.SearchIcon />}
+				autoCapitalize="none"
 			/>
 			{data && isSuccess && (
 				<View style={styles.userBlock}>

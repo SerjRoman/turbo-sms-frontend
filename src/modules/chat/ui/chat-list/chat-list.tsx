@@ -1,8 +1,8 @@
 import { FlatList, View, Text } from "react-native";
 import { Image } from "expo-image";
-import type { ChatWithContactInfo } from "./chat-list.types";
 import { chatItemStyles, chatListStyles } from "./chat-list.styles";
 import { TEST_CHAT_LIST_DATA } from "./TEST_DATA";
+import { ChatWithContactInfo } from '../../model';
 
 export interface ChatItemProps {
 	data: ChatWithContactInfo;

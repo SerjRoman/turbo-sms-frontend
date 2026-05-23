@@ -103,7 +103,6 @@ export function StepTwo() {
 								label="surname"
 								autoCorrect={false}
 								autoCapitalize={"none"}
-								autoComplete={"password"}
 								onChangeText={field.onChange}
 								onBlur={field.onBlur}
 								value={field.value}

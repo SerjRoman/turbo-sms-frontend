@@ -1,27 +1,27 @@
-import { View, Text } from "react-native";
+import { FlatList } from "react-native";
 import { styles } from "./contact-list.styles";
-import { useGetContactsQuery } from "../../api" ;
-import { Contact } from "./contact";
+import { Contact } from "../../model";
+import { ContactItem } from "./contact-item";
 
+interface ContactListProps {
+	contacts: Contact[];
+	onContactPress?: (contact: Contact) => void;
+}
 
-export function ContactList() {
-    const { data, isLoading, error } = useGetContactsQuery();
-    return (
-        <View style = {styles.contactList}>
-            {isLoading || !data ? (
-                <Text>Завантаження...</Text>
-            ) : error ? (
-                <Text>{String(error)}</Text>
-            ) : (
-                data.data.map((el) => (
-                <Contact
-                    userId={el.id}
-                    name={el.localName}
-                    imageName={el.avatar}
-                    key={el.id}
-                />
-                ))
-            )}
-        </View>
-    );
+export function ContactList({ contacts, onContactPress }: ContactListProps) {
+	return (
+		<FlatList
+			data={contacts}
+			contentContainerStyle={styles.list}
+			keyExtractor={(item) => item.id.toString()}
+			renderItem={({ item }) => (
+				<ContactItem
+					id={item.id}
+					localName={item.localName}
+					avatar={item.avatar}
+					onPress={() => onContactPress?.(item)}
+				/>
+			)}
+		/>
+	);
 }

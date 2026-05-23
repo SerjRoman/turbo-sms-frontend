@@ -1,3 +1,10 @@
+export type Chat = {
+	id: number;
+	createdAt: Date;
+	updatedAt: Date;
+	lastMessageId: number | null;
+};
+
 export interface LastMessage {
 	id: number;
 	chatId: number;
@@ -6,19 +13,14 @@ export interface LastMessage {
 	mediaUrl: string | null;
 	senderId: number;
 	chatAsLastMessageId: number;
-	createdAt: string;
-	updatedAt: string;
-}
-export interface Chat {
-	id: number;
-	lastMessageId: number | null;
+	createdAt: Date;
+	updatedAt: Date;
 }
 export interface ChatUserInfo {
 	name: string;
 	id: number;
 	surname: string;
-	avatar: string;
-	lastSeenAt: string;
+	avatar: string | null;
 }
 
 export type ChatWithContactInfo = Chat & {
@@ -26,11 +28,10 @@ export type ChatWithContactInfo = Chat & {
 } & (
 		| ({
 				participant: ChatUserInfo & {
-					contactOf: {
+					contactsOf: {
 						id: number;
-						avatar: string;
+						avatar: string | null;
 						localName: string;
-						addedAt: Date;
 					};
 				};
 		  } & {

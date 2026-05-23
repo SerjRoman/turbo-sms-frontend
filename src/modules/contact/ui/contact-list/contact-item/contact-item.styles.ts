@@ -21,7 +21,6 @@ export const styles = StyleSheet.create({
     },
     contactNameContainer: {
         flex: 1,
-        alignItems: "center"
     },
     contactName: {
         fontSize: FONT_SIZE.titleLarge,
