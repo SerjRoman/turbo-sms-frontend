@@ -22,7 +22,7 @@ const chatApi = baseApi
 			}),
 			getAllChats: build.query<ChatWithContactInfo[], void>({
 				query: () => ({
-					url: "/chats",
+					url: "/chats/my",
 					method: "GET",
 				}),
 				providesTags: ["Chat"],

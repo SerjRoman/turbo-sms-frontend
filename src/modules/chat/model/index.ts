@@ -1,1 +1,1 @@
-export type { Chat, ChatWithContactInfo } from "./types";
+export type { Chat, ChatWithContactInfo, Message } from "./types";

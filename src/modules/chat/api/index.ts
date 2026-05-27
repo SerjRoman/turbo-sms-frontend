@@ -1,1 +1,1 @@
-export { useCreateChatMutation, useGetAllChatsQuery } from "./chat-api";
+export { useCreateChatMutation, useGetAllChatsQuery } from "./chat.api";

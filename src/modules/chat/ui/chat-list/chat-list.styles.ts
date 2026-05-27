@@ -28,7 +28,8 @@ export const chatItemStyles = StyleSheet.create({
     avatarChatBlock: {
         width: 50,
         height: 50,
-        position: "relative"
+        position: "relative",
+        contentFit: "cover"
     },
     avatarChat: {
         flex: 1,
@@ -50,7 +51,8 @@ export const chatItemStyles = StyleSheet.create({
     },
     textualBlock: {
         flex: 1,
-        gap: 5
+        gap: 5,
+        alignItems: "flex-start"
     },
     nameLabel: {
         fontSize: FONT_SIZE.titleLarge,

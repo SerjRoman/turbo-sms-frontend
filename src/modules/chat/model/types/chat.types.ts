@@ -1,11 +1,11 @@
 export type Chat = {
 	id: number;
-	createdAt: Date;
-	updatedAt: Date;
+	createdAt: string;
+	updatedAt: string;
 	lastMessageId: number | null;
 };
 
-export interface LastMessage {
+export interface Message {
 	id: number;
 	chatId: number;
 	type: string;
@@ -13,8 +13,8 @@ export interface LastMessage {
 	mediaUrl: string | null;
 	senderId: number;
 	chatAsLastMessageId: number;
-	createdAt: Date;
-	updatedAt: Date;
+	createdAt: string;
+	updatedAt: string;
 }
 export interface ChatUserInfo {
 	name: string;
@@ -24,7 +24,7 @@ export interface ChatUserInfo {
 }
 
 export type ChatWithContactInfo = Chat & {
-	lastMessage: LastMessage | null;
+	lastMessage: Message | null;
 } & (
 		| ({
 				participant: ChatUserInfo & {

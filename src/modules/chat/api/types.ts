@@ -1,4 +1,5 @@
-import { Chat } from "../model";
+import type { PaginatedResponse, PaginationParams } from "@shared/types";
+import type { Message, Chat } from "../model";
 
 export interface CreateChatPayload {
 	contactUserId: number;
@@ -6,17 +7,7 @@ export interface CreateChatPayload {
 export type CreateChatResponse = Chat;
 
 export type ChatWithParticipantInfoResponse = Chat & {
-	lastMessage: {
-		id: number;
-		createdAt: Date;
-		updatedAt: Date;
-		chatId: number;
-		type: string;
-		text: string | null;
-		mediaUrl: string | null;
-		chatAsLastMessageId: number;
-		senderId: number;
-	} | null;
+	lastMessage: Message | null;
 	participants: [
 		{
 			user: {
@@ -34,10 +25,15 @@ export type ChatWithParticipantInfoResponse = Chat & {
 			};
 		} & {
 			id: number;
-			createdAt: Date;
-			updatedAt: Date;
+			createdAt: string;
+			updatedAt: string;
 			userId: number;
 			chatId: number;
 		},
 	];
+};
+
+export type GetAllMessagesResponse = PaginatedResponse<Message>;
+export type GetAllMessagePayload = PaginationParams & {
+	chatId: number;
 };

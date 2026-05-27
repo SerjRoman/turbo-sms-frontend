@@ -1,11 +1,12 @@
 import { ClientSocket } from "@shared/api";
 import { useLocalSearchParams } from "expo-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 
 export default function ChatScreen() {
 	const params = useLocalSearchParams<{ chatId: string }>();
 	const chatId = Number(params.chatId);
+	const [page, setPage] = useState(1);
 	useEffect(() => {
 		if (isNaN(chatId)) return;
 		ClientSocket.emit("joinChat", { chatId }, (response) => {
