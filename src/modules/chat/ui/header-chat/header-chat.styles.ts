@@ -8,9 +8,6 @@ export const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center",
 		backgroundColor: COLORS.bisquePrimary,
-		borderBottomWidth: 1,
-		borderColor: COLORS.brownPrimary,
-		borderStyle: "solid",
 		paddingHorizontal: 3,
 	},
 	titleContainer: {

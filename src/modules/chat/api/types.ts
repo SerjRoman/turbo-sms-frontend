@@ -37,3 +37,11 @@ export type GetAllMessagesResponse = PaginatedResponse<Message>;
 export type GetAllMessagePayload = PaginationParams & {
 	chatId: number;
 };
+
+export type UploadMessageMediaPayload = {
+	media: string;
+};
+
+export type UploadMessageMediaResponse = {
+	media: string;
+};

@@ -1,11 +1,12 @@
-import { FlatList, View, Text } from "react-native";
+import { FlatList, View, Text, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import { chatItemStyles, chatListStyles } from "./chat-list.styles";
 import { ChatWithContactInfo } from "../../model";
 import { apiThumbnailUrl, apiMediaUrl } from "@shared/api";
+import { useRouter } from "expo-router";
 
 export interface ChatItemProps {
-	data: ChatWithContactInfo;
+	chat: ChatWithContactInfo;
 	isUserOnline: (userId: number) => boolean;
 	isMyMessage: (senderId: number) => boolean;
 }
@@ -15,18 +16,24 @@ interface ChatListProps {
 	isMyMessage: (senderId: number) => boolean;
 }
 function ChatItem(props: ChatItemProps) {
-	const { data, isUserOnline, isMyMessage } = props;
-	const isOnline = isUserOnline(props.data.participant.id);
-	const isMyMessageFlag = isMyMessage(Number(data.lastMessage?.senderId));
-	const fullname = data.isInContact
-		? data.participant.contactsOf.localName
-		: `${data.participant.name} ${data.participant.surname}`;
+	const { chat, isUserOnline, isMyMessage } = props;
+	const isOnline = isUserOnline(chat.participant.id);
+	const isMyMessageFlag = isMyMessage(Number(chat.lastMessage?.senderId));
+	const fullname = chat.isInContact
+		? chat.participant.contactsOf.localName
+		: `${chat.participant.name} ${chat.participant.surname}`;
 	const senderName = isMyMessageFlag ? "You" : fullname;
-	const avatar = data.isInContact
-		? data.participant.contactsOf.avatar
-		: data.participant.avatar;
+	const avatar = chat.isInContact
+		? chat.participant.contactsOf.avatar
+		: chat.participant.avatar;
+	const router = useRouter();
 	return (
-		<View style={chatItemStyles.wholeChatBlock}>
+		<TouchableOpacity
+			onPress={() => {
+				router.push(`/chat/${chat.id}`);
+			}}
+			style={chatItemStyles.container}
+		>
 			<View style={chatItemStyles.avatarChatBlock}>
 				<Image
 					source={`${apiMediaUrl}${avatar}`}
@@ -45,14 +52,14 @@ function ChatItem(props: ChatItemProps) {
 			<View style={chatItemStyles.textualBlock}>
 				<Text style={chatItemStyles.nameLabel}>{fullname}</Text>
 				<Text style={chatItemStyles.textLabel}>
-					{data.lastMessage &&
-						`${senderName}: ${data.lastMessage.text}`}
+					{chat.lastMessage &&
+						`${senderName}: ${chat.lastMessage.text}`}
 				</Text>
 			</View>
 			<Text style={chatItemStyles.sentAtLabel}>
-				{data.lastMessage?.createdAt}
+				{chat.lastMessage?.createdAt}
 			</Text>
-		</View>
+		</TouchableOpacity>
 	);
 }
 
@@ -67,7 +74,7 @@ export function ChatList(props: ChatListProps) {
 			data={chats}
 			renderItem={({ item }) => (
 				<ChatItem
-					data={item}
+					chat={item}
 					isUserOnline={isUserOnline}
 					isMyMessage={isMyMessage}
 				/>

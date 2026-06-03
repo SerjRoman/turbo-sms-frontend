@@ -10,7 +10,9 @@ import { ProfileIcon } from "./_icons/profile-icon";
 import { SettingsIcon } from "./_icons/settings-icon";
 import { PlusIcon } from "./_icons/plus-icon";
 import { ArrowBackIcon } from "./_icons/arrow-back-icon";
-
+import { PaperclipIcon } from "./_icons/paperclip";
+import { PaperplaneIcon } from "./_icons/paperplane";
+import { ReadedIcon } from "./_icons/readed";
 
 export const Icons = {
 	EmailIcon,
@@ -25,4 +27,7 @@ export const Icons = {
 	SettingsIcon,
 	PlusIcon,
 	ArrowBackIcon,
+	PaperplaneIcon,
+	PaperclipIcon,
+	ReadedIcon,
 };

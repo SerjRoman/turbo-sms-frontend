@@ -16,7 +16,7 @@ export function Input(props: InputProps) {
 		...restProps
 	} = props;
 	return (
-		<View>
+		<>
 			{label && <Text style={[styles.label, labelStyle]}>{label}</Text>}
 
 			<View style={[styles.inputContainer, inputContainerStyle]}>
@@ -36,7 +36,7 @@ export function Input(props: InputProps) {
 					<Text style={styles.errorText}>{error}</Text>
 				</View>
 			)}
-		</View>
+		</>
 	);
 }
 

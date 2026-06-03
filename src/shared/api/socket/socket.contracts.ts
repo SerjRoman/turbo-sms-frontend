@@ -3,20 +3,21 @@ export type JoinChatCallback = (
 ) => void;
 export interface SendMessagePayload {
 	text?: string;
-	mediaUrl?: string;
+	media?: string;
 	chatId: number;
 	type: "text" | "media";
 }
 type Message = {
 	id: number;
-	createdAt: Date;
-	updatedAt: Date;
+	createdAt: string;
+	updatedAt: string;
 	chatId: number;
-	type: string;
+	type: "text" | "media";
 	text: string | null;
-	mediaUrl: string | null;
+	media: string | null;
 	lastChatId: number;
 	senderId: number;
+	chatAsLastMessageId: number;
 };
 
 export interface JoinChatPayload {
