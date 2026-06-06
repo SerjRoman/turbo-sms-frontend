@@ -7,6 +7,7 @@ export interface SendMessagePayload {
 	chatId: number;
 	type: "text" | "media";
 }
+export type UserStatus = { userId: number; status: string };
 type Message = {
 	id: number;
 	createdAt: string;
@@ -33,9 +34,15 @@ export type GetOnlineUsersPayload = {
 export type GetOnlineUsersAcknowledgment = (response: {
 	userIds: number[];
 }) => void;
-
+export interface GetUserStatusPayload {
+	userId: number;
+}
+export type SubscribeAndGetInitialStatusesPayload = {
+	userIds: number[];
+};
 export interface ServerEvents {
 	newChatMessage: (message: Message) => void;
+	userStatusUpdated: (payload: UserStatus) => void;
 }
 export interface ClientEvents {
 	joinChat: (payload: JoinChatPayload, ack?: JoinChatCallback) => void;
@@ -44,5 +51,13 @@ export interface ClientEvents {
 	getOnlineUsers: (
 		payload: GetOnlineUsersPayload,
 		ack?: GetOnlineUsersAcknowledgment,
+	) => void;
+	subscribeAndGetInitialStatuses: (
+		payload: SubscribeAndGetInitialStatusesPayload,
+		ack?: ({ statuses }: { statuses: UserStatus[] }) => void,
+	) => void;
+	getUserStatus: (
+		payload: GetUserStatusPayload,
+		ack?: ({ status }: { status: UserStatus }) => void,
 	) => void;
 }

@@ -12,7 +12,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ChatScreen() {
 	const { user } = useUserContext();
-	const params = useLocalSearchParams<{ chatId: string }>();
+	const params = useLocalSearchParams<{
+		chatId: string;
+		fullname: string;
+		avatar: string;
+		userId: string;
+	}>();
 	const chatId = Number(params.chatId);
 	const [page, setPage] = useState(1);
 	const { data } = useGetMessagesByChatQuery({
@@ -33,6 +38,13 @@ export default function ChatScreen() {
 				);
 			}
 		});
+		ClientSocket.emit(
+			"getUserStatus",
+			{ userId: Number(params.userId) },
+			({status}) => {
+                
+            },
+		);
 		return () => {
 			ClientSocket.emit("leaveChat", { chatId });
 		};

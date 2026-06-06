@@ -30,7 +30,16 @@ function ChatItem(props: ChatItemProps) {
 	return (
 		<TouchableOpacity
 			onPress={() => {
-				router.push(`/chat/${chat.id}`);
+				router.push({
+					pathname: `/chat/[chatId]`,
+					params: {
+						chatId: chat.id,
+						fullname,
+						avatar,
+						userId: chat.participant.id,
+						isOnline: isUserOnline(chat.participant.id).toString(),
+					},
+				});
 			}}
 			style={chatItemStyles.container}
 		>

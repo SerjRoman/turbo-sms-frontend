@@ -4,15 +4,30 @@ import { ClientSocket } from "@shared/api";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 
-function getOnlineUsers(
-	userIds: number[],
-	response: ({ userIds }: { userIds: number[] }) => void,
+function subscribeToUserStatusUpdates(
+	callback: (payload: { userId: number; status: string }) => void,
 ) {
-	ClientSocket.emit("getOnlineUsers", { userIds }, response);
+	ClientSocket.on("userStatusUpdated", callback);
+}
+function unsubscribeFromUserStatusUpdates(
+	callback: (payload: { userId: number; status: string }) => void,
+) {
+	ClientSocket.off("userStatusUpdated", callback);
+}
+
+function subscribeAndGetInitialStatuses(
+	userIds: number[],
+	response: ({
+		statuses,
+	}: {
+		statuses: { userId: number; status: string }[];
+	}) => void,
+) {
+	ClientSocket.emit("subscribeAndGetInitialStatuses", { userIds }, response);
 }
 
 export default function Chats() {
-	const { data: chats, isFetching } = useGetAllChatsQuery(undefined, {
+	const { data: chats } = useGetAllChatsQuery(undefined, {
 		pollingInterval: 5000,
 	});
 	const { user } = useUserContext();
@@ -20,12 +35,36 @@ export default function Chats() {
 		new Set<number>(),
 	);
 	useEffect(() => {
-		if (isFetching || !chats || chats.length === 0) return;
+		if (!chats || chats.length === 0) return;
 		const userIds = chats.map((chat) => chat.participant.id);
-		getOnlineUsers(userIds, (response) => {
-			setOnlineUserIds(new Set(response.userIds));
+		subscribeAndGetInitialStatuses(userIds, ({ statuses }) => {
+			const onlineIds = new Set<number>();
+			for (const status of statuses) {
+				if (status.status === "online") {
+					onlineIds.add(status.userId);
+				}
+			}
+			setOnlineUserIds(onlineIds);
 		});
-	}, [chats, isFetching]);
+		const handleStatusUpdate = (payload: {
+			userId: number;
+			status: string;
+		}) => {
+			setOnlineUserIds((prev) => {
+				const onlineUserIds = new Set(prev);
+				if (payload.status === "online") {
+					onlineUserIds.add(payload.userId);
+				} else {
+					onlineUserIds.delete(payload.userId);
+				}
+				return onlineUserIds;
+			});
+		};
+		subscribeToUserStatusUpdates(handleStatusUpdate);
+		return () => {
+			unsubscribeFromUserStatusUpdates(handleStatusUpdate);
+		};
+	}, [chats]);
 
 	function isMyMessage(senderId: number) {
 		return user?.id === senderId;

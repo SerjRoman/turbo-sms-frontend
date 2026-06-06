@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
 		backgroundColor: COLORS.bisquePrimary,
 		paddingHorizontal: 3,
 	},
-	titleContainer: {
+	fullnameContainer: {
 		flex: 1,
 		alignItems: "center",
 	},
