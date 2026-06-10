@@ -21,6 +21,15 @@ type Message = {
 	chatAsLastMessageId: number;
 };
 
+export type ChatWithLastMessage = {
+	lastMessage: Message;
+} & {
+	id: number;
+	createdAt: Date;
+	updatedAt: Date;
+	lastMessageId: number | null;
+};
+
 export interface JoinChatPayload {
 	chatId: number;
 }
@@ -43,6 +52,7 @@ export type SubscribeAndGetInitialStatusesPayload = {
 export interface ServerEvents {
 	newChatMessage: (message: Message) => void;
 	userStatusUpdated: (payload: UserStatus) => void;
+	chatUpdate: (payload: ChatWithLastMessage) => void;
 }
 export interface ClientEvents {
 	joinChat: (payload: JoinChatPayload, ack?: JoinChatCallback) => void;
