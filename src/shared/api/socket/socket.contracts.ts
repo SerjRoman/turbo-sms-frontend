@@ -21,8 +21,22 @@ type Message = {
 	chatAsLastMessageId: number;
 };
 
-export type ChatWithLastMessage = {
-	lastMessage: Message;
+export type ChatWithParticipantInfo = {
+	lastMessage: Message | null;
+	participants: ({
+		user: {
+			name: string;
+			id: number;
+			surname: string;
+			avatar: string | null;
+		};
+	} & {
+		id: number;
+		createdAt: Date;
+		updatedAt: Date;
+		userId: number;
+		chatId: number;
+	})[];
 } & {
 	id: number;
 	createdAt: Date;
@@ -52,7 +66,7 @@ export type SubscribeAndGetInitialStatusesPayload = {
 export interface ServerEvents {
 	newChatMessage: (message: Message) => void;
 	userStatusUpdated: (payload: UserStatus) => void;
-	chatUpdate: (payload: ChatWithLastMessage) => void;
+	chatUpdate: (payload: ChatWithParticipantInfo) => void;
 }
 export interface ClientEvents {
 	joinChat: (payload: JoinChatPayload, ack?: JoinChatCallback) => void;

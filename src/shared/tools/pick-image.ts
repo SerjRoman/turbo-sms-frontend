@@ -21,7 +21,7 @@ export async function pickImage(
 ): Promise<PickImageResponseFailure | PickImageResponseSuccess> {
 	const request = await requestMediaLibraryPermissionsAsync(writeOnly);
 	if (!request.granted) {
-		return { status: "error", message: "Acess to media library is denied" };
+		return { status: "error", message: "Access to media library is denied" };
 	}
 	const assets = await launchImageLibraryAsync(options);
 	if (assets.canceled) {

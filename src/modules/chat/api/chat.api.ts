@@ -2,10 +2,10 @@ import { baseApi } from "@shared/api/base";
 import type {
 	CreateChatResponse,
 	CreateChatPayload,
-	ChatWithParticipantInfoResponse,
+	ChatWithUsertInfoResponse,
 } from "./types";
 import { ChatWithContactInfo } from "../model";
-import { ChatWithLastMessage, ClientSocket } from "@shared/api";
+import { ChatWithParticipantInfo, ClientSocket } from "@shared/api";
 
 const chatApi = baseApi
 	.enhanceEndpoints({
@@ -29,7 +29,9 @@ const chatApi = baseApi
 				providesTags: ["Chat"],
 				async onCacheEntryAdded(arg, api) {
 					await api.cacheDataLoaded;
-					function handleChatUpdate(payload: ChatWithLastMessage) {
+					function handleChatUpdate(
+						payload: ChatWithParticipantInfo,
+					) {
 						api.updateCachedData((draft) => {
 							const chatIndex = draft.findIndex(
 								(chat) => chat.id === payload.id,
@@ -47,7 +49,7 @@ const chatApi = baseApi
 					ClientSocket.off("chatUpdate", handleChatUpdate);
 				},
 				transformResponse(
-					baseQueryReturnValue: ChatWithParticipantInfoResponse[],
+					baseQueryReturnValue: ChatWithUsertInfoResponse[],
 				) {
 					return baseQueryReturnValue.map((chat) => {
 						const { participants, ...restChat } = chat;
