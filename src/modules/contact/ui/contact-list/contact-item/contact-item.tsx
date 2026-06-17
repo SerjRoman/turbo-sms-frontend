@@ -6,7 +6,6 @@ import { apiThumbnailUrl } from "@shared/api";
 
 export function ContactItem(props: ContactProps) {
 	const { localName, avatar, onPress } = props;
-	console.log("ContactItem render", `${apiThumbnailUrl}${avatar}`);
 	return (
 		<TouchableOpacity style={styles.contactContainer} onPress={onPress}>
 			<Image

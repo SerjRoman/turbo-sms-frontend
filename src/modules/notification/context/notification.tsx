@@ -61,3 +61,10 @@ export function NotificationProvider(props: Readonly<PropsWithChildren>) {
 		</NotificationContext>
 	);
 }
+
+
+/*
+1. npx expo install
+2. npx expo-doctor
+
+*/

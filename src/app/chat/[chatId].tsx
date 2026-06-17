@@ -4,6 +4,7 @@ import {
 	MessageList,
 	SendMessageBlock,
 } from "@modules/chat";
+import { useNotificationContext } from "@modules/notification";
 import { ClientSocket } from "@shared/api";
 import { COLORS } from "@shared/constants/colors";
 import { Redirect, useLocalSearchParams } from "expo-router";
@@ -18,6 +19,7 @@ export default function ChatScreen() {
 		avatar: string;
 		userId: string;
 	}>();
+	const { setActiveChatId } = useNotificationContext();
 	const chatId = Number(params.chatId);
 	const [page, setPage] = useState(1);
 	const { data } = useGetMessagesByChatQuery({
@@ -28,6 +30,7 @@ export default function ChatScreen() {
 	const messages = data?.data || [];
 	useEffect(() => {
 		if (isNaN(chatId)) return;
+		setActiveChatId(chatId);
 		ClientSocket.emit("joinChat", { chatId }, (response) => {
 			if (response.status === "ok") {
 				console.log("Successfully joined chat");
@@ -41,12 +44,11 @@ export default function ChatScreen() {
 		ClientSocket.emit(
 			"getUserStatus",
 			{ userId: Number(params.userId) },
-			({status}) => {
-                
-            },
+			({ status }) => {},
 		);
 		return () => {
 			ClientSocket.emit("leaveChat", { chatId });
+			setActiveChatId(null);
 		};
 	}, [chatId]);
 	if (!user) {

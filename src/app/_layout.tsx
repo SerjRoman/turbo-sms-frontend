@@ -3,6 +3,7 @@ import {
 	useLazyMeQuery,
 	UserContextProvider,
 } from "@modules/auth";
+import { NotificationProvider } from "@modules/notification";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ApiProvider } from "@reduxjs/toolkit/query/react";
 import { ClientSocket } from "@shared/api";
@@ -19,8 +20,10 @@ export default function RootLayout() {
 			<ApiProvider api={baseApi}>
 				<UserContextProvider>
 					<KeyboardProvider>
-						<StatusBar style="auto" />
-						<AppStack />
+						<NotificationProvider>
+							<StatusBar style="auto" />
+							<AppStack />
+						</NotificationProvider>
 					</KeyboardProvider>
 				</UserContextProvider>
 			</ApiProvider>
