@@ -6,7 +6,7 @@ export function WelcomeBlock() {
 	return (
 		<View style={styles.container}>
 			<Images.LogoImage style={styles.image} />
-			<Text style={styles.title}>Welcome to TurboSMS3</Text>
+			<Text style={styles.title}>Welcome to TurboSMS</Text>
 		</View>
 	);
 }

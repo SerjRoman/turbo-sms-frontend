@@ -11,7 +11,19 @@ import {
 } from "../model";
 import { ChatWithParticipantInfo, ClientSocket } from "@shared/api";
 import { useUserContext } from "@modules/auth";
+import { setNotificationHandler } from "expo-notifications";
 
+setNotificationHandler({
+	handleNotification: async () => {
+		return {
+			shouldShowBanner: true,
+			shouldShowList: false,
+			shouldPlaySound: false,
+			shouldSetBadge: false,
+			shoudShowAlert: true,
+		};
+	},
+});
 interface NotifcationContextValue {
 	activeChatId: number | null;
 	setActiveChatId: (id: number | null) => void;
@@ -54,14 +66,13 @@ export function NotificationProvider(props: Readonly<PropsWithChildren>) {
 		return () => {
 			ClientSocket.off("chatUpdate", handleChatUpdate);
 		};
-	}, [activeChatId]);
+	}, [activeChatId, user]);
 	return (
 		<NotificationContext value={{ activeChatId, setActiveChatId }}>
 			{props.children}
 		</NotificationContext>
 	);
 }
-
 
 /*
 1. npx expo install

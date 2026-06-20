@@ -6,6 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "platforms": ["ios", "android"],
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -25,6 +26,8 @@
       "predictiveBackGestureEnabled": false,
       "package": "com.serjroman.turbosmsfrontend",
       "permissions": [
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.POST_NOTIFICATIONS",
         "android.permission.READ_MEDIA_IMAGES",
         "android.permission.POST_NOTIFICATIONS"
       ]
@@ -46,6 +49,12 @@
       "eas": {
         "projectId": "72ffa8ad-144c-4117-b4f2-7817be083acb"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/72ffa8ad-144c-4117-b4f2-7817be083acb"
     }
   }
 }
