@@ -3,6 +3,7 @@ import { InputPasswordProps, InputProps } from "./input.types";
 import { Icons } from "../icons";
 import { styles } from "./input.styles";
 import { useState } from "react";
+import { COLORS } from "../../constants/colors";
 
 export function Input(props: InputProps) {
 	const {
@@ -23,6 +24,7 @@ export function Input(props: InputProps) {
 				{iconLeft}
 				<TextInput
 					style={[styles.input, style]}
+					placeholderTextColor={COLORS.black}
 					{...restProps}
 				></TextInput>
 				{iconRight}
